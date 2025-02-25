@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import {
-  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -13,7 +11,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
-import { catchError, firstValueFrom } from 'rxjs';
+import { catchError } from 'rxjs';
 import { PaginationDTO } from 'src/common';
 import { PRODUCT_SERVICE } from 'src/config';
 
