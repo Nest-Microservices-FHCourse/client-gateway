@@ -7,8 +7,10 @@ import {
   Inject,
   ParseUUIDPipe,
   Query,
+  Patch,
+  ParseIntPipe,
 } from '@nestjs/common';
-import { CreateOrderDto, StatusDTO } from './dto';
+import { CreateOrderDto, StatusDTO, UpdateStatusDTO } from './dto';
 import { ORDER_SERVICE } from 'src/config';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { catchError } from 'rxjs';
@@ -46,6 +48,21 @@ export class OrdersController {
   ) {
     return this.orderClient
       .send('findAllOrders', { ...paginationDTO, status: statusDTO.status })
+      .pipe(
+        catchError((error) => {
+          throw new RpcException(error);
+        }),
+      );
+  }
+
+  @Patch(':id')
+  changeStatus(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() statusDTO: UpdateStatusDTO,
+  ) {
+    // return { ...statusDTO, id };
+    return this.orderClient
+      .send('changeOrderStatus', { ...statusDTO, id })
       .pipe(
         catchError((error) => {
           throw new RpcException(error);

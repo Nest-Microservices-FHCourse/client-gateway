@@ -8,3 +8,10 @@ export class StatusDTO {
   @IsOptional()
   status: OrderStatus;
 }
+
+export class UpdateStatusDTO {
+  @IsEnum(OrderStatusList, {
+    message: `Possible status values are ${OrderStatusList.join(', ')}`,
+  })
+  status: OrderStatus;
+}
