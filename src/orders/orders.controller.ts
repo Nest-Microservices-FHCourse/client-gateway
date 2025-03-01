@@ -8,7 +8,6 @@ import {
   ParseUUIDPipe,
   Query,
   Patch,
-  ParseIntPipe,
 } from '@nestjs/common';
 import { CreateOrderDto, StatusDTO, UpdateStatusDTO } from './dto';
 import { ORDER_SERVICE } from 'src/config';
