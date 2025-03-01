@@ -1,5 +1,6 @@
 import { Type } from 'class-transformer';
-import { IsOptional, IsPositive } from 'class-validator';
+import { IsEnum, IsOptional, IsPositive } from 'class-validator';
+import { OrderStatus, OrderStatusList } from 'src/orders/enum/order.enum';
 
 export class PaginationDTO {
   @IsPositive()
@@ -11,4 +12,12 @@ export class PaginationDTO {
   @IsOptional()
   @Type(() => Number)
   limit: number;
+}
+
+export class PaginationOrderDTO extends PaginationDTO {
+  @IsOptional()
+  @IsEnum(OrderStatusList, {
+    message: `Valid status are ${OrderStatusList.join(', ')}`,
+  })
+  status: OrderStatus;
 }
